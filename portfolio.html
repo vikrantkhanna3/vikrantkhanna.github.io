@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikrant Khanna — Product Marketing Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --surface: #ffffff;
+    --surface2: #ede9e1;
+    --border: #d6d0c4;
+    --accent: #1a1a2e;
+    --accent2: #c94a2a;
+    --text: #1a1a1a;
+    --muted: #555550;
+    --muted2: #999990;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--accent2);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-decoration: none;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(160px, 22vw, 320px);
+    color: transparent;
+    -webkit-text-stroke: 1px #ddd8ce;
+    letter-spacing: -4px;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 9vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  .hero-title span { color: var(--accent); }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--accent2);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--text); color: var(--text); }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 36px 40px;
+    border-right: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .stat-item:nth-child(1) { animation-delay: 0.1s; }
+  .stat-item:nth-child(2) { animation-delay: 0.2s; }
+  .stat-item:nth-child(3) { animation-delay: 0.3s; }
+  .stat-item:nth-child(4) { animation-delay: 0.4s; border-right: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTION */
+  section { padding: 100px 48px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 2px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 72px);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 20px;
+    margin-bottom: 4px;
+  }
+
+  /* CASE STUDY CARDS */
+  .cases-grid {
+    display: grid;
+    gap: 2px;
+  }
+
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 52px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    cursor: default;
+  }
+
+  .case-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.4s ease;
+  }
+
+  .case-card:hover { border-color: #333; }
+  .case-card:hover::before { height: 100%; }
+
+  .case-meta {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .tag.highlight {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    background: rgba(201,74,42,0.07);
+  }
+
+  .case-company {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    margin-bottom: 12px;
+  }
+
+  .case-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 3.5vw, 52px);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .case-body {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 720px;
+    margin-bottom: 36px;
+  }
+
+  .case-results {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-item { }
+
+  .result-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .result-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* PROCESS BREAKDOWN */
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  .process-step {
+    background: var(--surface2);
+    padding: 24px 28px;
+  }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .step-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* THINKING SECTION */
+  .thinking-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    padding: 40px 48px;
+    margin-bottom: 2px;
+  }
+
+  .thinking-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .thinking-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .thinking-text strong {
+    color: var(--text);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 100px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .contact-left { }
+
+  .contact-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 7vw, 100px);
+    line-height: 0.95;
+    margin-bottom: 24px;
+  }
+
+  .contact-headline span { color: var(--accent); }
+
+  .contact-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.7;
+  }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+  }
+
+  .contact-email {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+
+  .contact-email:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 24px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.animate-hidden {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.animate-hidden.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent2) 0%, transparent 60%);
+    margin: 0 48px;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero, section { padding-left: 20px; padding-right: 20px; }
+    .stats-bar { flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .case-card { padding: 28px; }
+    .case-results { gap: 20px; }
+    .contact-section { padding: 60px 20px; flex-direction: column; align-items: flex-start; }
+    .contact-right { align-items: flex-start; }
+    footer { padding: 20px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">VIKRANT KHANNA</div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#thinking">Thinking</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">GTM</div>
+  <div class="hero-tag">Marketing & Growth — Founding Team Experience</div>
+  <h1 class="hero-title">
+    I build<br>
+    <span>growth</span><br>
+    from the<br>
+    ground up.
+  </h1>
+  <p class="hero-desc">
+    Marketing & growth generalist with founding team experience across B2B HR SaaS and consumer prediction markets. I own strategy and execution — from positioning and pricing to paid campaigns, community, and influencer-led growth.
+  </p>
+
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">2</div>
+    <div class="stat-label">0→1 Launches</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">B2B</div>
+    <div class="stat-label">& B2C Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6+</div>
+    <div class="stat-label">Channels Owned</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Founding</div>
+    <div class="stat-label">Team Member, Both</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Case Studies</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- CASE 1: SAKSHAM -->
+  <div class="case-card reveal">
+    <div class="case-meta">
+      <span class="tag highlight">GTM / Launch</span>
+      <span class="tag">Positioning & Messaging</span>
+      <span class="tag">Pricing Strategy</span>
+      <span class="tag">B2B HR SaaS</span>
+    </div>
+    <div class="case-company">// Case Study 01 — Saksham</div>
+    <h3 class="case-title">Taking an HR SaaS from<br>Zero to First Paying SMEs</h3>
+    <p class="case-body">
+      Saksham is an HR SaaS built for Indian SMEs — covering payroll automation, attendance &amp; leave management, and employee onboarding. I joined as a founding team member at pre-launch, which meant there was no playbook, no brand, and no pipeline. Everything — GTM strategy, messaging, pricing, and channel mix — had to be built from scratch.
+      <br><br>
+      The core challenge was a crowded market where every competitor was selling the same feature list. SME founders weren't looking for software — they were looking for <strong>relief from a recurring headache</strong>. Our positioning shifted from "HR tool" to "the system that runs your people ops so you don't have to think about it." That framing drove every asset we built.
+    </p>
+
+    <div class="case-results">
+      <div class="result-item">
+        <div class="result-num">0→1</div>
+        <div class="result-label">Full GTM built from scratch</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">6</div>
+        <div class="result-label">Channels activated at launch</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">3</div>
+        <div class="result-label">Pricing tiers designed & tested</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">SME</div>
+        <div class="result-label">Founder persona, fully mapped</div>
+      </div>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">STEP 01</div>
+        <div class="step-title">ICP & Positioning</div>
+        <div class="step-desc">Spoke directly with 20+ SME founders to understand their real HR pain — payroll errors, compliance fear, onboarding chaos. Built positioning around anxiety relief, not feature lists.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 02</div>
+        <div class="step-title">Pricing Architecture</div>
+        <div class="step-desc">Designed a 3-tier pricing model anchored to headcount — low entry barrier for 5–15 employee businesses, with a clear upgrade path. Tested price sensitivity via outreach before launch.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 03</div>
+        <div class="step-title">Multi-Channel GTM</div>
+        <div class="step-desc">Ran LinkedIn ads targeting SME founders and ops heads, Google ads on high-intent keywords, cold email sequences to curated lists, and WhatsApp community seeding through founder networks.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 04</div>
+        <div class="step-title">Founder-Led Content</div>
+        <div class="step-desc">Built a founder-led content engine on LinkedIn and Instagram — sharing real SME HR problems and how Saksham solved them. Drove organic inbound trust before any paid dollar was spent.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE 2: TRADEX -->
+  <div class="case-card reveal">
+    <div class="case-meta">
+      <span class="tag highlight">Growth & Community</span>
+      <span class="tag">Influencer Marketing</span>
+      <span class="tag">Referral Loops</span>
+      <span class="tag">Prediction Market</span>
+    </div>
+    <div class="case-company">// Case Study 02 — Tradex</div>
+    <h3 class="case-title">Growing a Prediction Market<br>Through Community & Creators</h3>
+    <p class="case-body">
+      Tradex is a prediction market platform targeting sports and fantasy gaming fans in India — a user who already understands the thrill of calling outcomes right, but has never thought of it as a "market." As a founding team member, I owned growth: community building, influencer marketing, referral loop design, and organic/paid campaigns.
+      <br><br>
+      The insight that drove everything: <strong>fantasy sports fans don't need to be educated on prediction — they already do it</strong>. They just needed a platform that felt familiar, competitive, and social. So instead of explaining the concept, we plugged into existing cricket and football fan communities and let the product speak through creators they already trusted.
+    </p>
+
+    <div class="case-results">
+      <div class="result-item">
+        <div class="result-num">Organic</div>
+        <div class="result-label">Community-first acquisition model</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">3</div>
+        <div class="result-label">Creator tiers activated</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">4</div>
+        <div class="result-label">Channels owned simultaneously</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">Campus</div>
+        <div class="result-label">Ambassador programme launched</div>
+      </div>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">STEP 01</div>
+        <div class="step-title">Community Seeding</div>
+        <div class="step-desc">Identified and entered 40+ Telegram and Discord groups for IPL, Premier League, and fantasy gaming fans. Seeded Tradex organically through value-first content — match predictions, leaderboards, winner highlights.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 02</div>
+        <div class="step-title">Influencer Engine</div>
+        <div class="step-desc">Built a 3-tier creator programme: nano influencers (campus/local sports creators) for trust, mid-tier sports YouTubers for reach, and Reels creators for virality. Managed briefs, content calendars, and payout structures.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 03</div>
+        <div class="step-title">Referral Loop Design</div>
+        <div class="step-desc">Designed a referral programme tied to match events — users who referred friends before a big game got bonus prediction credits. Loop was timed to natural excitement peaks, driving burst acquisition.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">STEP 04</div>
+        <div class="step-title">College Campus GTM</div>
+        <div class="step-desc">Launched a campus ambassador programme at 8+ colleges targeting sports-obsessed students. Ambassadors ran prediction contests within their networks, generating high-LTV users at near-zero CAC.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THINKING -->
+<section id="thinking">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">How I Think</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="thinking-block reveal">
+    <div class="thinking-label">// On Positioning</div>
+    <p class="thinking-text">
+      Most early-stage products fail at positioning because they describe <strong>what the product does</strong>, not <strong>what the user stops suffering through</strong>. At Saksham, every SME founder we spoke to wasn't excited about "payroll automation" — they were relieved at the idea of never missing a salary date again. That's the message. Always start with the relief, not the feature.
+    </p>
+  </div>
+
+  <div class="thinking-block reveal">
+    <div class="thinking-label">// On Growth Channels</div>
+    <p class="thinking-text">
+      The best channel is always the one where your user already spends time feeling the problem. At Tradex, that was sports Telegram groups — not ads. At Saksham, it was founder LinkedIn communities. I don't pick channels from a playbook. I <strong>find where the frustration lives and show up there</strong> with something useful.
+    </p>
+  </div>
+
+  <div class="thinking-block reveal">
+    <div class="thinking-label">// On 0→1 Marketing</div>
+    <p class="thinking-text">
+      At the founding stage, marketing's real job isn't awareness — it's <strong>belief building</strong>. You're not selling a product yet; you're selling the idea that this team, with this insight, can solve this problem. Every piece of content, every campaign, every community post at Saksham and Tradex was designed to make someone say: "These people get it."
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <h2 class="contact-headline">
+      Let's<br>
+      <span>Build</span><br>
+      Something.
+    </h2>
+    <p class="contact-sub">
+      Looking for Product Marketing or Growth roles at early-stage startups — especially in SaaS, fintech, or consumer tech. I work best at zero-to-one, where the category is still being defined and the playbook doesn't exist yet.
+    </p>
+  </div>
+  <div class="contact-right">
+    <a href="/cdn-cgi/l/email-protection#66100f0d14070812480d0e07080807260913120a09090d4805090b" class="contact-email"><span class="__cf_email__" data-cfemail="5f2936342d3e312b7134373e31313e1f302a2b33303034713c3032">[email&#160;protected]</span></a>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 — Vikrant Khanna. Marketing & Growth Portfolio.</p>
+  <p>Built for the application. Designed to think out loud.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Add animate-hidden class after page load, then trigger reveals on scroll
+  window.addEventListener('DOMContentLoaded', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => el.classList.add('animate-hidden'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersec
